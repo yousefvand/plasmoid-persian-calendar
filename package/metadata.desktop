@@ -1,0 +1,23 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Persian Calendar
+Comment=Persian calendar (Jalali).
+Icon=mini-calendar-widget
+Type=Service
+
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Version=1.0.0
+X-KDE-PluginInfo-Author=Remisa
+X-KDE-PluginInfo-Email=remisa.yousefvand@gmail.com
+X-KDE-PluginInfo-Name=org.kde.plasma.persian-calendar
+X-KDE-PluginInfo-Website=https://github.com/yousefvand/plasmoid-persian-calendar
+X-KDE-PluginInfo-Category=Date and Time
+X-KDE-PluginInfo-EnabledByDefault=true
+X-Plasma-Provides=org.kde.plasma.date
+X-Plasma-API=declarativeappletscript
+X-KDE-ServiceTypes=Plasma/Applet
+X-Plasma-MainScript=ui/main.qml
+X-KDE-PluginInfo-KdeStoreId=
+X-KDE-FormFactors=
+X-KDE-ParentApp=
+X-KDE-Library=
