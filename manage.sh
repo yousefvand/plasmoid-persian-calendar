@@ -14,6 +14,7 @@ version="1.0.0"  # Script Version
 # 0   no error.
 # 1   unknown parameter.
 # 2   requirement not satisfied.
+# 3   Unknown error.
 
 # >>>>>>>>>>>>>>>>>>>>>>>> functions >>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -37,25 +38,43 @@ function installPlasmoid () {
   checkRequirements
   echo "Installing plasmoid, please wait..."
   kpackagetool5 -t Plasma/Applet --install package
-  echo "Plasmoid installed successfully."
+  if [[ $? == 0 ]]; then
+    echo "Plasmoid installed successfully."
+  else
+    echo `tput setaf 1`Plasmoid installation failed!`tput sgr0`
+    exit 3
+  fi
 }
 
 function removePlasmoid () {
   checkRequirements
   echo "Removing plasmoid, please wait..."
   kpackagetool5 -t Plasma/Applet --remove package
-  echo "Plasmoid removed successfully."
+  if [[ $? == 0 ]]; then
+    echo "Plasmoid removed successfully."
+  else
+    echo `tput setaf 1`Plasmoid removal failed!`tput sgr0`
+    exit 3
+  fi
 }
 
 # killall plasmashell && kstart5 plasmashell
 function upgradePlasmoid () {
-  echo "Upgrsding plasmoid, please wait..."
+  echo "Upgrading plasmoid, please wait..."
   kpackagetool5 -t Plasma/Applet --remove package
+  if [[ $? != 0 ]]; then
+    echo `tput setaf 1`Plasmoid upgrade failed!`tput sgr0`
+    exit 3
+  fi
   killall plasmashell
   sleep 1s
   kstart5 plasmashell
   kpackagetool5 -t Plasma/Applet --install package
   # kpackagetool5 -u myplasmoid
+  if [[ $? != 0 ]]; then
+    echo `tput setaf 1`Plasmoid upgrade failed!`tput sgr0`
+    exit 3
+  fi
   echo "Plasmoid upgraded successfully."
 }
 
@@ -176,7 +195,7 @@ case "$action" in
     upgradePlasmoid
   ;;
   Exit)
-    echo "Nothing done!"
+    echo `tput setaf 3`Nothing done!`tput sgr0`
     exit 0
   ;;
   *)
