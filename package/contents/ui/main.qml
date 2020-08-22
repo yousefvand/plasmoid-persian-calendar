@@ -10,11 +10,11 @@ Item
 {
   id: root
 
-  Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
-  Layout.preferredHeight: persianDateLabel.height + 4
-  Layout.preferredWidth:  persianDateLabel.width  + 4
-  Layout.maximumHeight:   persianDateLabel.height + 4
-  Layout.maximumWidth:    persianDateLabel.width  + 4
+  Plasmoid.preferredRepresentation:  Plasmoid.fullRepresentation
+  Layout.preferredHeight:            persianDateLabel.height + 4
+  Layout.preferredWidth:             persianDateLabel.width  + 4
+  Layout.maximumHeight:              persianDateLabel.height + 4
+  Layout.maximumWidth:               persianDateLabel.width  + 4
 
   FontLoader {
     source: "../fonts/Vazir.ttf"
@@ -36,10 +36,19 @@ Item
     font.weight:          Font.Normal
     font.pointSize:       -1
     font.pixelSize:       parent.height * 0.6
-    text:                 JCal.persianDate()
+    text:                 JCal.persianDateShort()
     wrapMode:             Text.NoWrap
     anchors.centerIn:     parent
     horizontalAlignment:  Text.AlignHCenter
     verticalAlignment:    Text.AlignVCenter
+  }
+
+  PlasmaCore.ToolTipArea
+  {
+    anchors.fill: parent
+    textFormat:   Text.RichText
+    mainText:     ""
+    subText:      "<center>" + JCal.gregorianDateLong() + "\n" + 
+                  "<p style=\"font-family: Vazir\">" + JCal.persianDateLong() + "</p></center>"
   }
 }
