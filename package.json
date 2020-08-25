@@ -1,0 +1,37 @@
+{
+  "name": "plasmoid-persian-calendar",
+  "version": "1.3.0",
+  "description": "A simple KDE Plasma widget for Persian date",
+  "author": "Remisa Yousefvand <remisa.yousefvand@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/yousefvand/plasmoid-persian-calendar#readme",
+  "bugs": {
+    "url": "https://github.com/yousefvand/plasmoid-persian-calendar/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yousefvand/plasmoid-persian-calendar.git"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/jest --detectOpenHandles --verbose --coverage",
+    "spellcheck": "./node_modules/.bin/cspell --config .vscode/settings.json \"lib/*\" \"tests/*\""
+  },
+  "keywords": [
+    "kde",
+    "plasmoid",
+    "plasma",
+    "Persian",
+    "Farsi",
+    "Shamsi",
+    "Jalali",
+    "calendar",
+    "تقویم",
+    "شمسی",
+    "جلالی"
+  ],
+  "devDependencies": {
+    "cspell": "^4.1.0",
+    "jest": "^26.4.2",
+    "standard": "^14.3.4"
+  }
+}

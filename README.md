@@ -6,7 +6,7 @@ A simple KDE Plasma widget for Persian date (a.k.a [Jalali calendar](https://en.
 
 ![screenshot](package/contents/screenshot.png)
 
-*Latest Release: v1.2.0 `[2020-08-23]`*
+*Latest Release: v1.3.0 `[2020-08-??]`*
 
 [Change history](./CHANGELOG.md)
 

@@ -1,88 +1,6 @@
-.pragma library
+// BUILD+: .pragma library
 
-// Unfortunately KDE Javascript engine doesn't support "toLocaleDateString" yet.
-
-const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
-const weekDays = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-]
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-]
-const persianWeekDays = [
-  'یکشنبه',
-  'دوشنبه',
-  'سه شنبه',
-  'چهارشنبه',
-  'پنج شنبه',
-  'جمعه',
-  'شنبه'
-]
-const persianMonths = [
-  'فروردین',
-  'اردیبهشت',
-  'خرداد',
-  'تیر',
-  'مرداد',
-  'شهریور',
-  'مهر',
-  'آبان',
-  'آذر',
-  'دی',
-  'بهمن',
-  'اسفند'
-]
-
-const persianNumber = str => str.split('').map(persianDigit).join('')
-const persianDigit = char => isNaN(char) ? char : persianDigits[parseInt(char)]
-
-function persianDateShort () {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = today.getMonth() + 1
-  const day = today.getDate()
-  const jDate = gregorianToJalali(year, month, day)
-  return persianNumber(jDate.jy + '/' + jDate.jm + '/' + jDate.jd)
-}
-
-function persianDateLong () {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = today.getMonth() + 1
-  const day = today.getDate()
-  const jDate = gregorianToJalali(year, month, day)
-  const jWeekDay = persianWeekDays[today.getDay()]
-  const jDay = persianNumber('' + jDate.jd)
-  const jMonthName = persianMonths[jDate.jm - 1]
-  const jYear = persianNumber('' + jDate.jy)
-  return `${jWeekDay}، ${jDay} ${jMonthName} ${jYear}`
-}
-
-function gregorianDateLong () {
-  const today = new Date()
-  const weekDay = weekDays[today.getDay()]
-  const day = today.getDate()
-  const monthName = monthNames[today.getMonth()]
-  const year = today.getFullYear()
-  return `${weekDay}, ${day} ${monthName} ${year}`
-}
+// Unfortunately KDE Javascript engine doesn't support 'toLocaleDateString' yet.
 
 function gregorianToJalali (gy, gm, gd) {
   /**
@@ -109,5 +27,7 @@ function gregorianToJalali (gy, gm, gd) {
     jm = 7 + parseInt((days - 186) / 30)
     jd = 1 + ((days - 186) % 30)
   }
-  return { jy, jm, jd }
+  return { Year: jy, Month: jm, Day: jd }
 }
+
+module.exports = { gregorianToJalali } // BUILD--

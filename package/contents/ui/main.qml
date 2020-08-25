@@ -10,6 +10,11 @@ Item
 {
   id: root
 
+  property bool showTooltip:         plasmoid.configuration.showTooltip
+  property int updateInterval:       plasmoid.configuration.updateInterval * 1000
+  property string mainText:          plasmoid.configuration.mainText
+  property string tooltipText:       plasmoid.configuration.tooltipText
+
   Plasmoid.preferredRepresentation:  Plasmoid.fullRepresentation
   Layout.preferredHeight:            persianDateLabel.height + 4
   Layout.preferredWidth:             persianDateLabel.width  + 4
@@ -25,7 +30,7 @@ Item
     id:                   localTime
     engine:               "time"
     connectedSources:     ["Local"]
-    interval:             60000
+    interval:             updateInterval
   }
     
   PlasmaComponents.Label
@@ -33,22 +38,23 @@ Item
     id:                   persianDateLabel
     smooth:               true
     font.family:          "Vazir"
-    font.weight:          Font.Normal
     font.pointSize:       -1
     font.pixelSize:       parent.height * 0.6
-    text:                 JCal.persianDateShort()
+    textFormat:           Text.RichText
+    text:                 JCal.fullDateTime(localTime.data.Local.DateTime)
     wrapMode:             Text.NoWrap
     anchors.centerIn:     parent
-    horizontalAlignment:  Text.AlignHCenter
-    verticalAlignment:    Text.AlignVCenter
   }
 
   PlasmaCore.ToolTipArea
   {
     anchors.fill: parent
+    visible:      showTooltip
     textFormat:   Text.RichText
     mainText:     ""
-    subText:      "<center>" + JCal.gregorianDateLong() + "\n" + 
-                  "<p style=\"font-family: Vazir\">" + JCal.persianDateLong() + "</p></center>"
+    subText:      `<center>${JCal.gregorianDateLong()}
+                  <p style=\"font-family: Vazir\">
+                  ${JCal.persianDateLong()}
+                  </p></center>`
   }
 }
