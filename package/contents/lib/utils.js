@@ -1,6 +1,6 @@
 // BUILD++: .pragma library
-// BUILD++: .import "names.js" as names
-const names = require('./names') // BUILD-
+// BUILD++: .import "names.js" as Names
+const Names = require('./names') // BUILD--
 
 // const id = a => a
 const constant = c => a => c
@@ -12,7 +12,7 @@ const chain = fns => now => fns.map(f => f(now)).join('')
 
 // const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 const persianNumber = str => str.split('').map(persianDigit).join('')
-const persianDigit = char => isNaN(char) ? char : names.persianDigits[parseInt(char)]
+const persianDigit = char => isNaN(char) ? char : Names.persianDigits[parseInt(char)]
 
 const memoize = fn => {
   const cache = {}
@@ -24,21 +24,7 @@ const memoize = fn => {
   }
 }
 
-const fnDict = {
-  d: now => now.getDate,
-  dd: now => () => memoize(now => digiPad(now.getDate())),
-  ddd: now => () => memoize(now => names.weekDays[now.getDay()].substring(3)),
-  dddd: now => () => memoize(now => names.weekDays[now.getDay()]),
-  m: now => now.getMonth() + 1,
-  mm: now => () => memoize(now => digiPad(now.getMonth() + 1)),
-  mmm: now => () => memoize(now => names.months[now.getMonth()].substring(3)),
-  mmmm: now => () => memoize(now => names.months[now.getMonth()]),
-  yy: now => memoize(now => ('' + now.fullYear()).substring(2)),
-  yyyy: now => now.getFullYear,
-  h: now => now.getHours
-}
-
-module.exports = { constant, isMask, digiPad, chain, persianNumber, persianDigit, memoize, fnDict } // BUILD--
+module.exports = { constant, isMask, digiPad, chain, persianNumber, persianDigit, memoize } // BUILD--
 
 /*
 // Old stuff

@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-const perf = require('perf_hooks')
+// const perf = require('perf_hooks')
 // const data = require('./mock-data')
 const utils = require('../package/contents/lib/utils')
 
@@ -46,15 +46,15 @@ describe('utils', () => {
     const f = x => Math.sqrt((19 * x ^ 2 + x * 3 - 7) / 5)
     const fm = utils.memoize(f)
     const inputs = [...new Array(0xff)].map(() => randInt(0x1, 0xffff))
-    const _ = inputs.map(fm) // memoize warm up
-    let t0 = perf.performance.now()
+    // const _ = inputs.map(fm) // memoize warm up
+    // let t0 = perf.performance.now()
     const fo = inputs.map(f)
-    let t1 = perf.performance.now()
-    const tf = t1 - t0
-    t0 = perf.performance.now()
+    // let t1 = perf.performance.now()
+    // const tf = t1 - t0
+    // t0 = perf.performance.now()
     const fmo = inputs.map(fm)
-    t1 = perf.performance.now()
-    const tfm = t1 - t0
+    // t1 = perf.performance.now()
+    // const tfm = t1 - t0
     expect(fo).toEqual(fmo)
     // console.log(`tf: ${tf}, tfm: ${tfm}, tf > tfm: ${tf > tfm}`)
     // expect(tf).toBeGreaterThan(tfm)

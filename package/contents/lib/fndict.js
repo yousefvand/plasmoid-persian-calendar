@@ -1,8 +1,9 @@
 // BUILD++: .pragma library
+// BUILD++: .import "names.js" as Names
 // BUILD++: .import "utils.js" as Utils
+const Names = require('./names') // BUILD--
 const Utils = require('./utils') // BUILD--
 
-// Reinventing the wheel!
 /*
 Parser masks. Prefix with 'p' for Persian digits/month names.
 
@@ -33,40 +34,18 @@ Parser masks. Prefix with 'p' for Persian digits/month names.
 
 */
 
-const parse = (format, now) => {
-  const fnCache = {} // each member of fnCache is an array of functions (order matters)
-  return ((format, now) => {
-    if (format in fnCache) {
-      return fnCache[format](now) // Just apply functions from cache to new input
-    } else {
-      const fns = []
-      let mask = ''
-      let rest = ''
-      for (let i = 0; i < format.length; i++) {
-        const char = format[i]
-        if (Utils.isMask(char)) {
-          if (rest.length > 0) {
-            fns.push(Utils.constant(rest))
-            rest = ''
-          }
-          mask += char
-        } else {
-          if (mask.length > 0) {
-            if (mask in Utils.fnDict) {
-              fns.push(Utils.fnDict[mask])
-            } else {
-              fns.push(Utils.constant(mask))
-            }
-            mask = ''
-          }
-          rest += char
-        }
-      }
-      fnCache[format] = Utils.chain(fns)
-      // residue?
-      console.log(`mask: ${mask}\nrest: ${rest}`)
-    }
-  })()
+const fnDict = {
+  d: now => now.getDate,
+  dd: now => () => Utils.memoize(now => Utils.digiPad(now.getDate())),
+  ddd: now => () => Utils.memoize(now => Names.weekDays[now.getDay()].substring(3)),
+  dddd: now => () => Utils.memoize(now => Names.weekDays[now.getDay()]),
+  m: now => now.getMonth() + 1,
+  mm: now => () => Utils.memoize(now => Utils.digiPad(now.getMonth() + 1)),
+  mmm: now => () => Utils.memoize(now => Names.months[now.getMonth()].substring(3)),
+  mmmm: now => () => Utils.memoize(now => Names.months[now.getMonth()]),
+  yy: now => Utils.memoize(now => ('' + now.fullYear()).substring(2)),
+  yyyy: now => now.getFullYear,
+  h: now => now.getHours
 }
 
-module.exports = { parse } // BUILD--
+module.exports = { fnDict } // BUILD--

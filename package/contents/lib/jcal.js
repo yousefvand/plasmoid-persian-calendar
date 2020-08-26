@@ -1,4 +1,4 @@
-// BUILD+: .pragma library
+// BUILD++: .pragma library
 
 // Unfortunately KDE Javascript engine doesn't support 'toLocaleDateString' yet.
 

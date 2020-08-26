@@ -1,4 +1,4 @@
-// BUILD+: .pragma library
+// BUILD++: .pragma library
 
 const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
 

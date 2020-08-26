@@ -6,7 +6,7 @@ A simple KDE Plasma widget for Persian date (a.k.a [Jalali calendar](https://en.
 
 ![screenshot](package/contents/screenshot.png)
 
-*Latest Release: v1.3.0 `[2020-08-??]`*
+*Latest Release: v1.3.0 `[2020-08-26]`*
 
 [Change history](./CHANGELOG.md)
 
@@ -15,7 +15,7 @@ A simple KDE Plasma widget for Persian date (a.k.a [Jalali calendar](https://en.
 ```bash
 git clone https://github.com/yousefvand/plasmoid-persian-calendar.git
 cd plasmoid-persian-calendar
-./build.sh
+./manage.sh --build
 # Replace VERSION according to your build
 kpackagetool5 -t Plasma/Applet --install persian-calendar.VERSION.plasmoid
 ```

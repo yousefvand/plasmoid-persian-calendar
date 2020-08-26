@@ -6,8 +6,8 @@
 # Title:         Plasmoid Manager
 # Description:   Install/Remove/Upgrade plasmoid project from current directory.
 # Author:        Remisa Yousefvand <remisa.yousefvand@gmail.com>
-# Date:          2020-07-26
-version="1.0.0"  # Script Version
+# Date:          2020-08-26
+version="1.1.0"  # Script Version
 
 # Exit codes
 # ==========
@@ -17,6 +17,47 @@ version="1.0.0"  # Script Version
 # 3   Unknown error.
 
 # >>>>>>>>>>>>>>>>>>>>>>>> functions >>>>>>>>>>>>>>>>>>>>>>>>
+
+function persianNumber () {
+  result="$1"
+  result=$(sed "s/0/$(echo -ne '\u06F0')/g" <<< "$result")
+  result=$(sed "s/1/$(echo -ne '\u06F1')/g" <<< "$result")
+  result=$(sed "s/2/$(echo -ne '\u06F2')/g" <<< "$result")
+  result=$(sed "s/3/$(echo -ne '\u06F3')/g" <<< "$result")
+  result=$(sed "s/4/$(echo -ne '\u06F4')/g" <<< "$result")
+  result=$(sed "s/5/$(echo -ne '\u06F5')/g" <<< "$result")
+  result=$(sed "s/6/$(echo -ne '\u06F6')/g" <<< "$result")
+  result=$(sed "s/7/$(echo -ne '\u06F7')/g" <<< "$result")
+  result=$(sed "s/8/$(echo -ne '\u06F8')/g" <<< "$result")
+  result=$(sed "s/9/$(echo -ne '\u06F9')/g" <<< "$result")
+  echo "$result"
+}
+
+function setVersion () {
+  sed -i "0,/\"version\"\:[[:space:]]\"[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+\"/s//\"version\"\: \"${plasmoidVersion}\"/" package.json package-lock.json
+  sed -i "s/^\*Latest Release\:.*/*Latest Release: v${plasmoidVersion} \`[$(date -I)]\`*/" README.md
+  sed -i "s/^#[[:space:]]Changes.*/# Changes: TODO/" CHANGELOG.md
+
+  sed -i "s/PLASMOID_VERSION_PLACEHOLDER/${plasmoidVersion}/" "${outDirectory}/package/metadata.desktop"
+  sed -i "s/PLASMOID_VERSION_PLACEHOLDER/$(persianNumber ${plasmoidVersion})/" "${outDirectory}/package/contents/ui/config/about.qml"
+}
+
+function prepare () {
+  rm -rf "$outDirectory"
+  mkdir "$outDirectory"
+  cp -R package "$outDirectory"
+
+  for jsFile in `find "$outDirectory" -name "*.js" -type f`; do
+    # Remove leading "// BUILD++: " from lines
+    sed -i 's/^\/\/[[:space:]]BUILD++\:[[:space:]]*//g' "$jsFile"
+    # Remove lines ending with "// BUILD--"
+    sed -i '/\/\/[[:space:]]BUILD--[[:space:]]*$/d' "$jsFile"
+    # Remove extra empty lines from end of the file
+    sed -i ':a;/^[ \n]*$/{$d;N;ba}' "$jsFile"
+  done
+
+  setVersion
+}
 
 function bannerSimple() {
   local msg="* $* *"
@@ -37,7 +78,7 @@ function checkRequirements () {
 function installPlasmoid () {
   checkRequirements
   echo "Installing plasmoid, please wait..."
-  kpackagetool5 -t Plasma/Applet --install package
+  kpackagetool5 -t Plasma/Applet --install "$outDirectory"/package
   if [[ $? == 0 ]]; then
     echo "Plasmoid installed successfully."
   else
@@ -49,7 +90,7 @@ function installPlasmoid () {
 function removePlasmoid () {
   checkRequirements
   echo "Removing plasmoid, please wait..."
-  kpackagetool5 -t Plasma/Applet --remove package
+  kpackagetool5 -t Plasma/Applet --remove "$outDirectory"/package
   if [[ $? == 0 ]]; then
     echo "Plasmoid removed successfully."
   else
@@ -61,7 +102,7 @@ function removePlasmoid () {
 # killall plasmashell && kstart5 plasmashell
 function upgradePlasmoid () {
   echo "Upgrading plasmoid, please wait..."
-  kpackagetool5 -t Plasma/Applet --remove package
+  kpackagetool5 -t Plasma/Applet --remove "$outDirectory"/package
   if [[ $? != 0 ]]; then
     echo `tput setaf 1`Plasmoid upgrade failed!`tput sgr0`
     exit 3
@@ -69,13 +110,32 @@ function upgradePlasmoid () {
   killall plasmashell
   sleep 1s
   kstart5 plasmashell
-  kpackagetool5 -t Plasma/Applet --install package
+  kpackagetool5 -t Plasma/Applet --install "$outDirectory"/package
   # kpackagetool5 -u myplasmoid
   if [[ $? != 0 ]]; then
     echo `tput setaf 1`Plasmoid upgrade failed!`tput sgr0`
     exit 3
   fi
   echo "Plasmoid upgraded successfully."
+}
+
+function buildPlasmoid () {
+  if [ ! -f out/package/metadata.desktop ]; then
+    echo "`tput setaf 1`Error: `tput sgr0`Cannot find `tput setaf 6`metadata.desktop`tput sgr0` at `tput setaf 5`/package`tput sgr0` directory."
+    exit 2
+  fi
+
+  packageFile="persian-calendar.v${plasmoidVersion}.plasmoid"
+
+  if [ ! `command -v zip` ]; then
+    echo "`tput setaf 1`Error: `tput sgr0`You need `tput setaf 6`zip`tput sgr0` installed on your sytem."
+    exit 2
+  fi
+
+  echo `tput setaf 2`Building package...`tput sgr0`
+  zip -r "$packageFile" package
+  echo `tput setaf 2`Done!`tput sgr0`
+  echo "`tput dim`Plasmoid package saved at \"$(pwd)/${packageFile}\"`tput sgr0`"
 }
 
 function chooseOption() {
@@ -137,20 +197,33 @@ function help () {
 
         option     |      Comment
   -----------------+-------------------
+    -b, --build    |  Build   Plasmoid
+    -h, --help     |  Help    Message
     -i, --install  |  Install Plasmoid
     -r, --remove   |  Remove  Plasmoid
     -u, --upgrade  |  Upgrade Plasmoid
     -v, --version  |  Script  Version 
-    -h, --help     |  Help    Message
   "
 }
 
 # <<<<<<<<<<<<<<<<<<<<<<<< functions <<<<<<<<<<<<<<<<<<<<<<<<
 
+# >>>>>>>>>>>>>>>>>>>>>>>> Variables >>>>>>>>>>>>>>>>>>>>>>>>
+outDirectory="out"
+plasmoidVersion="1.3.0"
+# <<<<<<<<<<<<<<<<<<<<<<<< Variables <<<<<<<<<<<<<<<<<<<<<<<<
+
+# Entry point
+
 bannerSimple "Plasmoid Manager"
+echo `tput setaf 5`Plasmoid version: ${plasmoidVersion}`tput sgr0`
+
 action=""
 
 case "$1" in
+  -b|--build)
+    action=Build
+  ;;
   -i|--install)
     action=Install
   ;;
@@ -178,13 +251,17 @@ case "$1" in
 esac
 
 if [ -z "$action" ]; then
-  options=("Install" "Remove" "Upgrade" "Exit")
-  chooseOption "What do you want to do?" 2 "${options[@]}"; choice=$?
+  options=("Build" "Install" "Remove" "Upgrade" "Exit")
+  chooseOption "What do you want to do?" 3 "${options[@]}"; choice=$?
+  action="${options[$choice]}"
 fi
 
-action="${options[$choice]}"
+prepare # deletes "out" directory
 
 case "$action" in
+  Build)
+    buildPlasmoid
+  ;;
   Install)
     installPlasmoid
   ;;

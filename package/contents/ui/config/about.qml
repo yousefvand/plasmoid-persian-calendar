@@ -19,7 +19,7 @@ ColumnLayout
     font.weight:         Font.Normal
     font.pointSize:      16
     horizontalAlignment: Text.AlignHCenter
-    text:                '<b>تقویم فارسی</b><br/>نسخه ۱.۱.۳<br/><br/>'
+    text:                '<b>تقویم فارسی</b><br/>نسخه PLASMOID_VERSION_PLACEHOLDER<br/><br/>'
   }
 
   PlasmaComponents.Label
