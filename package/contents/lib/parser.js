@@ -52,8 +52,8 @@ const parse = (format, now) => {
           mask += char
         } else {
           if (mask.length > 0) {
-            if (mask in Utils.fnDict) {
-              fns.push(Utils.fnDict[mask])
+            if (mask in Utils.masks) {
+              fns.push(Utils.masks[mask])
             } else {
               fns.push(Utils.constant(mask))
             }

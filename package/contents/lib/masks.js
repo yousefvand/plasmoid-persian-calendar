@@ -34,18 +34,29 @@ Parser masks. Prefix with 'p' for Persian digits/month names.
 
 */
 
-const fnDict = {
-  d: now => now.getDate,
-  dd: now => () => Utils.memoize(now => Utils.digiPad(now.getDate())),
-  ddd: now => () => Utils.memoize(now => Names.weekDays[now.getDay()].substring(3)),
-  dddd: now => () => Utils.memoize(now => Names.weekDays[now.getDay()]),
-  m: now => now.getMonth() + 1,
-  mm: now => () => Utils.memoize(now => Utils.digiPad(now.getMonth() + 1)),
-  mmm: now => () => Utils.memoize(now => Names.months[now.getMonth()].substring(3)),
-  mmmm: now => () => Utils.memoize(now => Names.months[now.getMonth()]),
-  yy: now => Utils.memoize(now => ('' + now.fullYear()).substring(2)),
-  yyyy: now => now.getFullYear,
-  h: now => now.getHours
+const masks = {
+  d: now => '' + now.getDate(now),
+  dd: now => Utils.digiPad(now.getDate(now)),
+  ddd: now => Names.weekDays[now.getDay()].substring(0, 3),
+  dddd: now => Names.weekDays[now.getDay()],
+  m: now => '' + (now.getMonth(now) + 1),
+  mm: now => Utils.digiPad(now.getMonth(now) + 1),
+  mmm: now => Names.months[now.getMonth(now)].substring(0, 3),
+  mmmm: now => Names.months[now.getMonth(now)],
+  yy: now => ('' + now.getFullYear(now)).substring(0, 2),
+  yyyy: now => '' + now.getFullYear(now),
+  h: now => '' + (now.getHours(now) % 12 || 12),
+  hh: now => Utils.digiPad(now.getHours(now) % 12 || 12),
+  H: now => '' + now.getHours(now),
+  HH: now => Utils.digiPad(now.getHours(now)),
+  M: now => '' + now.getMinutes(now),
+  MM: now => Utils.digiPad(now.getMinutes(now)),
+  s: now => '' + now.getSeconds(now),
+  ss: now => Utils.digiPad(now.getSeconds(now)),
+  t: now => now.getHours(now) < 12 ? 'a' : 'p',
+  tt: now => now.getHours(now) < 12 ? 'am' : 'pm',
+  T: now => now.getHours(now) < 12 ? 'A' : 'P',
+  TT: now => now.getHours(now) < 12 ? 'AM' : 'PM'
 }
 
-module.exports = { fnDict } // BUILD--
+module.exports = { masks } // BUILD--
