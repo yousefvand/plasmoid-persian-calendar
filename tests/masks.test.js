@@ -1,35 +1,123 @@
 /* eslint-env jest */
 
 const data = require('./mock-data').masks
-const masks = require('../package/contents/lib/masks').masks
+const masks = require('../package/contents/lib/masks').dict
 
 describe('masks', () => {
-  test('d', () => {
+  // d
+  test('gd', () => {
     // Day of the month as digits. No leading zero for single-digit days.
     data.forEach(d => {
-      const mask = 'd'
-      expect(masks[mask](d.raw)).toBe(d.d)
+      const mask = 'gd'
+      expect(masks[mask](d.raw)).toBe(d.gd)
     })
   })
-  test('dd', () => {
+  test('pgd', () => {
+    // Day of the month as digits. No leading zero for single-digit days.
+    data.forEach(d => {
+      const mask = 'pgd'
+      expect(masks[mask](d.raw)).toBe(d.pgd)
+    })
+  })
+  test('jd', () => {
+    // Day of the month as digits. No leading zero for single-digit days.
+    data.forEach(d => {
+      const mask = 'jd'
+      expect(masks[mask](d.raw)).toBe(d.jd)
+    })
+  })
+  test('pjd', () => {
+    // Day of the month as digits. No leading zero for single-digit days.
+    data.forEach(d => {
+      const mask = 'pjd'
+      expect(masks[mask](d.raw)).toBe(d.pjd)
+    })
+  })
+  // dd
+  test('gdd', () => {
     // Day of the month as digits. Leading zero for single-digit days.
     data.forEach(d => {
-      const mask = 'dd'
-      expect(masks[mask](d.raw)).toBe(d.dd)
+      const mask = 'gdd'
+      expect(masks[mask](d.raw)).toBe(d.gdd)
     })
   })
-  test('ddd', () => {
-    // Day of the week as a three-letter abbreviation. Persian not supported.
+  test('pgdd', () => {
+    // Day of the month as digits. Leading zero for single-digit days.
     data.forEach(d => {
-      const mask = 'ddd'
-      expect(masks[mask](d.raw)).toBe(d.ddd)
+      const mask = 'pgdd'
+      expect(masks[mask](d.raw)).toBe(d.pgdd)
     })
   })
-  test('dddd', () => {
+  test('jdd', () => {
+    // Day of the month as digits. Leading zero for single-digit days.
+    data.forEach(d => {
+      const mask = 'jdd'
+      expect(masks[mask](d.raw)).toBe(d.jdd)
+    })
+  })
+  test('pjdd', () => {
+    // Day of the month as digits. Leading zero for single-digit days.
+    data.forEach(d => {
+      const mask = 'pjdd'
+      expect(masks[mask](d.raw)).toBe(d.pjdd)
+    })
+  })
+  // ddd
+  test('gddd', () => {
+    // Day of the week as a three-letter abbreviation.
+    data.forEach(d => {
+      const mask = 'gddd'
+      expect(masks[mask](d.raw)).toBe(d.gddd)
+    })
+  })
+  test('pgddd', () => {
+    // Day of the week as a one-letter abbreviation.
+    data.forEach(d => {
+      const mask = 'pgddd'
+      expect(masks[mask](d.raw)).toBe(d.pgddd)
+    })
+  })
+  test('jddd', () => {
+    // Day of the week as a three-letter abbreviation.
+    data.forEach(d => {
+      const mask = 'jddd'
+      expect(masks[mask](d.raw)).toBe(d.jddd)
+    })
+  })
+  test('pjddd', () => {
+    // Day of the week as a three-letter abbreviation.
+    data.forEach(d => {
+      const mask = 'pjddd'
+      expect(masks[mask](d.raw)).toBe(d.pjddd)
+    })
+  })
+  // dddd
+  test('gdddd', () => {
     // Day of the week as its full name.
     data.forEach(d => {
-      const mask = 'dddd'
-      expect(masks[mask](d.raw)).toBe(d.dddd)
+      const mask = 'gdddd'
+      expect(masks[mask](d.raw)).toBe(d.gdddd)
+    })
+  })
+  test('pgdddd', () => {
+    // Day of the week as its full name.
+    data.forEach(d => {
+      const mask = 'pgdddd'
+      expect(masks[mask](d.raw)).toBe(d.pgdddd)
+    })
+  })
+  test('jdddd', () => {
+    // Day of the week as its full name.
+    data.forEach(d => {
+      const mask = 'jdddd'
+      expect(masks[mask](d.raw)).toBe(d.jdddd)
+    })
+  })
+  test('pjdddd', () => {
+    // Day of the week as its full name.
+    data.forEach(d => {
+      const mask = 'pjdddd'
+      expect(masks[mask](d.raw)).toBe(d.pjdddd)
     })
   })
   test('m', () => {
@@ -39,6 +127,13 @@ describe('masks', () => {
       expect(masks[mask](d.raw)).toBe(d.m)
     })
   })
+  test('pm', () => {
+    // Month as digits. No leading zero for single-digit months.
+    data.forEach(d => {
+      const mask = 'pm'
+      expect(masks[mask](d.raw)).toBe(d.pm)
+    })
+  })
   test('mm', () => {
     // Month as digits. Leading zero for single-digit months.
     data.forEach(d => {
@@ -46,11 +141,32 @@ describe('masks', () => {
       expect(masks[mask](d.raw)).toBe(d.mm)
     })
   })
+  test('pmm', () => {
+    // Month as digits. Leading zero for single-digit months.
+    data.forEach(d => {
+      const mask = 'pmm'
+      expect(masks[mask](d.raw)).toBe(d.pmm)
+    })
+  })
   test('mmm', () => {
-    // Month as a three-letter abbreviation. Persian not supported.
+    // Month as a three-letter abbreviation.
     data.forEach(d => {
       const mask = 'mmm'
       expect(masks[mask](d.raw)).toBe(d.mmm)
+    })
+  })
+  test('pmmm', () => {
+    // Month as a three-letter abbreviation.
+    data.forEach(d => {
+      const mask = 'pmmm'
+      expect(masks[mask](d.raw)).toBe(d.pmmm)
+    })
+  })
+  test('pmmmm', () => {
+    // Month as a three-letter abbreviation.
+    data.forEach(d => {
+      const mask = 'pmmmm'
+      expect(masks[mask](d.raw)).toBe(d.pmmmm)
     })
   })
   test('mmmm', () => {

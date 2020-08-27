@@ -11,10 +11,10 @@ describe('utils', () => {
     const rnd = Math.random()
     expect(utils.constant(rnd)(Math.random())).toBe(rnd)
   })
-  test('isMask', () => {
-    'pdmyhHMstT'.split('').forEach(c => expect(utils.isMask(c)).toBe(true))
-    'aBcDeFg_ijKLnOqRuVwXZ'.split('').forEach(c => expect(utils.isMask(c)).toBe(false))
-  })
+  // test('isMask', () => {
+  //   'pdmyhHMstT'.split('').forEach(c => expect(utils.isMask(c)).toBe(true))
+  //   'aBcDeFg_ijKLnOqRuVwXZ'.split('').forEach(c => expect(utils.isMask(c)).toBe(false))
+  // })
   test('digiPad', () => {
     expect(utils.digiPad(5)).toBe('05')
     expect(utils.digiPad(9)).toBe('09')
@@ -41,6 +41,13 @@ describe('utils', () => {
       { us: '5', fa: '۵' },
       { us: 'T', fa: 'T' }
     ].forEach(n => expect(utils.persianNumber(n.us)).toBe(n.fa))
+  })
+  test('indexOfAny', () => {
+    expect(utils.indexOfAny('abc', ['x,y,z'])).toBe(-1)
+    expect(utils.indexOfAny('aHbc', ['o', 'H'])).toBe(1)
+    expect(utils.indexOfAny('aHbMc', ['M', 'H'])).toBe(1)
+    expect(utils.indexOfAny('yaHbc', ['m', 'H', 'y'])).toBe(0)
+    expect(utils.indexOfAny('aZbQcs', ['p', 's', 'u'])).toBe(5)
   })
   test('memoize', () => {
     const f = x => Math.sqrt((19 * x ^ 2 + x * 3 - 7) / 5)

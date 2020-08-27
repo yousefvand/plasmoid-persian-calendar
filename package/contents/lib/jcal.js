@@ -30,4 +30,10 @@ function gregorianToJalali (gy, gm, gd) {
   return { Year: jy, Month: jm, Day: jd }
 }
 
-module.exports = { gregorianToJalali } // BUILD--
+const g2j = now => gregorianToJalali(now.getFullYear(now), now.getMonth(now) + 1, now.getDate(now))
+
+const day = now => g2j(now).Day
+const month = now => g2j(now).Month
+const year = now => g2j(now).Year
+
+module.exports = { day, month, year, gregorianToJalali } // BUILD--

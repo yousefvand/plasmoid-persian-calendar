@@ -1,6 +1,7 @@
 // BUILD++: .pragma library
-// BUILD++: .import "utils.js" as Utils
+// BUILD++: .import "masks.js" as Masks
 const Utils = require('./utils') // BUILD--
+const Masks = require('./masks') // BUILD--
 
 // Reinventing the wheel!
 /*
@@ -10,11 +11,11 @@ Parser masks. Prefix with 'p' for Persian digits/month names.
    ------------------------------------------------------------------------
    d    | pd      | Day of the month as digits. No leading zero for single-digit days.
    dd   | pdd     | Day of the month as digits. Leading zero for single-digit days.
-   ddd  | N/A     | Day of the week as a three-letter abbreviation. Persian not supported.
+   ddd  | pddd    | Day of the week as a three-letter abbreviation. Persian -> one-letter.
    dddd | pdddd   | Day of the week as its full name.
    m    | pm      | Month as digits. No leading zero for single-digit months.
    mm   | pmm     | Month as digits. Leading zero for single-digit months.
-   mmm  | N/A     | Month as a three-letter abbreviation. Persian not supported.
+   mmm  | pmmm    | Month as a three-letter abbreviation.
    mmmm | pmmmm   | Month as its full name.
    yy   | pyy     | Year as last two digits. Leading zero for years less than 10.
    yyyy | pyyyy   | Year represented by four digits.
@@ -33,40 +34,59 @@ Parser masks. Prefix with 'p' for Persian digits/month names.
 
 */
 
-const parse = (format, now) => {
-  const fnCache = {} // each member of fnCache is an array of functions (order matters)
-  return ((format, now) => {
-    if (format in fnCache) {
-      return fnCache[format](now) // Just apply functions from cache to new input
-    } else {
-      const fns = []
-      let mask = ''
-      let rest = ''
-      for (let i = 0; i < format.length; i++) {
-        const char = format[i]
-        if (Utils.isMask(char)) {
-          if (rest.length > 0) {
-            fns.push(Utils.constant(rest))
-            rest = ''
-          }
-          mask += char
-        } else {
-          if (mask.length > 0) {
-            if (mask in Utils.masks) {
-              fns.push(Utils.masks[mask])
-            } else {
-              fns.push(Utils.constant(mask))
-            }
-            mask = ''
-          }
-          rest += char
-        }
-      }
-      fnCache[format] = Utils.chain(fns)
-      // residue?
-      console.log(`mask: ${mask}\nrest: ${rest}`)
+const tokens = [
+  'pdddd', 'dddd',
+  'ddd',
+  'pdd', 'dd',
+  'pd', 'd',
+  'pmmmm', 'mmmm',
+  'mmm',
+  'pmm', 'mm',
+  'pm', 'm',
+  'pyyyy', 'yyyy',
+  'pyy', 'yy',
+  'phh', 'hh',
+  'ph', 'h',
+  'pHH', 'HH',
+  'pH', 'H',
+  'pMM', 'MM',
+  'pM', 'M',
+  'pss', 'ss',
+  'ps', 's',
+  'ptt', 'tt',
+  'pt', 't',
+  'pTT', 'TT',
+  'pT', 'T'
+]
+
+function tokenize (format, result = []) {
+  if (format.length === 0) {
+    return result
+  }
+  for (const token of tokens) {
+    if (format.startsWith(token)) {
+      result.push(token)
+      return tokenize(format.substring(token.length), result)
     }
-  })()
+  }
+  // not optimized for consecutive non-tokens in favor of common usage
+  result.push(format[0])
+  return tokenize(format.substring(1), result)
 }
 
-module.exports = { parse } // BUILD--
+const parse = (format, now) => {
+  // each member of fnCache is an array of functions (order matters)
+  const fnCache = {}
+  return ((format, now) => {
+    if (format in fnCache) {
+      // Just apply functions from cache to new input
+      return fnCache[format](now)
+    } else {
+      // TODO: const fns = tokenize(format).map(t => Masks.dict[t])
+      fnCache[format] = Utils.chain(fns)
+      return fnCache[format](now)
+    }
+  })(format, now)
+}
+
+module.exports = { tokenize, parse } // BUILD--

@@ -11,6 +11,27 @@ const persianWeekDays = [
   'جمعه',
   'شنبه'
 ]
+
+const persianWeekDaysAbbr = [
+  'ی',
+  'د',
+  'س',
+  'چ',
+  'پ',
+  'ج',
+  'ش'
+]
+
+const WeekDaysFingilish = [
+  'YekShanbe',
+  'DoShanbe',
+  'SeShanbe',
+  'CharShanbe',
+  'PanjShanbe',
+  'Jome',
+  'Shanbe'
+]
+
 const persianMonths = [
   'فروردین',
   'اردیبهشت',
@@ -24,6 +45,36 @@ const persianMonths = [
   'دی',
   'بهمن',
   'اسفند'
+]
+
+const persianMonthsFingilish = [
+  'Farvardin',
+  'Ordibehesht',
+  'Khordad',
+  'Tir',
+  'Mordad',
+  'Shahrivar',
+  'Mehr',
+  'Aban',
+  'Azar',
+  'Dey',
+  'Bahman',
+  'Esfand'
+]
+
+const persianMonthsAbbr = [
+  'فرو',
+  'ارد',
+  'خرد',
+  'تیر',
+  'مرد',
+  'شهر',
+  'مهر',
+  'آبا',
+  'آذر',
+  'دی',
+  'بهم',
+  'اسف'
 ]
 
 const months = [
@@ -41,6 +92,36 @@ const months = [
   'December'
 ]
 
+const monthsPingilish = [
+  'ژانویه',
+  'فوریه',
+  'مارس',
+  'آوریل',
+  'می',
+  'ژوئن',
+  'جولای',
+  'آگوست',
+  'سپتامبر',
+  'اکتبر',
+  'نوامبر',
+  'دسامبر'
+]
+
+const monthsPingilishAbbr = [
+  'ژان',
+  'فور',
+  'مار',
+  'آور',
+  'می',
+  'ژوئ',
+  'جول',
+  'آگو',
+  'سپت',
+  'اکت',
+  'نوا',
+  'دسا'
+]
+
 const weekDays = [
   'Sunday',
   'Monday',
@@ -51,4 +132,24 @@ const weekDays = [
   'Saturday'
 ]
 
-module.exports = { persianDigits, persianWeekDays, persianMonths, months, weekDays } // BUILD--
+const weekDaysPingilish = [
+  'ساندی',
+  'ماندی',
+  'تیوزدی',
+  'ونزدی',
+  'ترزدی',
+  'فرایدی',
+  'ساتردی'
+]
+
+const weekDaysPingilishAbbr = [
+  'سان',
+  'مان',
+  'تیو',
+  'ونز',
+  'ترز',
+  'فرا',
+  'ستر'
+]
+
+module.exports = { persianDigits, persianWeekDays, persianWeekDaysAbbr, persianMonthsFingilish, monthsPingilish, persianMonths, monthsPingilishAbbr, persianMonthsAbbr, months, weekDays, weekDaysPingilish, weekDaysPingilishAbbr, WeekDaysFingilish } // BUILD--
