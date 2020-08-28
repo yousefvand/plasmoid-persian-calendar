@@ -6,8 +6,8 @@ Icon=mini-calendar-widget
 Type=Service
 
 X-KDE-PluginInfo-License=GPL
-X-KDE-PluginInfo-Version=1.2.0
-X-KDE-PluginInfo-Author=Remisa
+X-KDE-PluginInfo-Version=PLASMOID_VERSION_PLACEHOLDER
+X-KDE-PluginInfo-Author=Remisa Yousefvand
 X-KDE-PluginInfo-Email=remisa.yousefvand@gmail.com
 X-KDE-PluginInfo-Name=org.kde.plasma.persian-calendar
 X-KDE-PluginInfo-Website=https://github.com/yousefvand/plasmoid-persian-calendar

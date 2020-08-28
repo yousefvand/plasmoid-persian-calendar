@@ -1,5 +1,9 @@
 # Changes
 
+## v1.3.0 `[2020-08-28]`
+
+- Configurations.
+
 ## v1.2.0 `[2020-08-23]`
 
 - Details as tooltip.
