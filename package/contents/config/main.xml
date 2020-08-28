@@ -13,10 +13,10 @@
       <default>true</default>
     </entry>
 		<entry name="mainText" type="string">
-      <default></default>
+      <default><![CDATA[<span style="font-size:0.875em;font-family:Vazir;">pjyyyy/pjmm/pjdd</span>]]></default>
     </entry>
 		<entry name="tooltipText" type="string">
-      <default></default>
+      <default><![CDATA[<b><p style="font-family:Vazir;font-size:0.875em;text-align:center;">gdddd, gd gmmmm gyyyy<br/>pjdddd، pjd pjmmmm pjyyyy</p></b>]]></default>
     </entry>
   </group>
 

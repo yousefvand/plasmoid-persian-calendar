@@ -4,7 +4,7 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
-import "../lib/parser.js" as Parser
+import "../lib/pdp.js" as Parser
 
 Item
 {
@@ -41,7 +41,7 @@ Item
     font.pointSize:       -1
     font.pixelSize:       parent.height * 0.6
     textFormat:           Text.RichText
-    text:                 Parser.parse(mainText, localTime.data.Local.DateTime)
+    text:                 Parser.parse(mainText, localTime.data.Local.DateTime, true)
     wrapMode:             Text.NoWrap
     anchors.centerIn:     parent
   }
@@ -52,6 +52,6 @@ Item
     visible:      showTooltip
     textFormat:   Text.RichText
     mainText:     ""
-    subText:      Parser.parse(tooltipText, localTime.data.Local.DateTime)
+    subText:      Parser.parse(tooltipText, localTime.data.Local.DateTime, true)
   }
 }

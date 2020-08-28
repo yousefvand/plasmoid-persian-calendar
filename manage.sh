@@ -7,7 +7,7 @@
 # Description:   Install/Remove/Upgrade plasmoid project from current directory.
 # Author:        Remisa Yousefvand <remisa.yousefvand@gmail.com>
 # Date:          2020-08-26
-version="1.1.0"  # Script Version
+version="1.2.0"  # Script Version
 
 # Exit codes
 # ==========
@@ -34,7 +34,7 @@ function persianNumber () {
 }
 
 function setVersion () {
-  sed -i "0,/\"version\"\:[[:space:]]\"[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+\"/s//\"version\"\: \"${plasmoidVersion}\"/" package.json package-lock.json
+  # sed -i "0,/\"version\"\:[[:space:]]\"[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+\"/s//\"version\"\: \"${plasmoidVersion}\"/" package.json package-lock.json
   sed -i "s/^\*Latest Release\:.*/*Latest Release: v${plasmoidVersion} \`[$(date -I)]\`*/" README.md
   sed -i "s/^#[[:space:]]Changes.*/# Changes: TODO/" CHANGELOG.md
 
@@ -46,17 +46,15 @@ function prepare () {
   rm -rf "$outDirectory"
   mkdir "$outDirectory"
   cp -R package "$outDirectory"
-
-  for jsFile in `find "$outDirectory" -name "*.js" -type f`; do
-    # Remove leading "// BUILD++: " from lines
-    sed -i 's/^\/\/[[:space:]]BUILD++\:[[:space:]]*//g' "$jsFile"
-    # Remove lines ending with "// BUILD--"
-    sed -i '/\/\/[[:space:]]BUILD--[[:space:]]*$/d' "$jsFile"
-    # Remove extra empty lines from end of the file
-    sed -i ':a;/^[ \n]*$/{$d;N;ba}' "$jsFile"
-  done
-
   setVersion
+  # for jsFile in `find "$outDirectory" -name "*.js" -type f`; do
+  #   # Remove leading "// BUILD++: " from lines
+  #   sed -i 's/^\/\/[[:space:]]BUILD++\:[[:space:]]*//g' "$jsFile"
+  #   # Remove lines ending with "// BUILD--"
+  #   sed -i '/\/\/[[:space:]]BUILD--[[:space:]]*$/d' "$jsFile"
+  #   # Remove extra empty lines from end of the file
+  #   sed -i ':a;/^[ \n]*$/{$d;N;ba}' "$jsFile"
+  # done
 }
 
 function bannerSimple() {
@@ -133,7 +131,11 @@ function buildPlasmoid () {
   fi
 
   echo `tput setaf 2`Building package...`tput sgr0`
+  here=$(pwd)
+  cd out
   zip -r "$packageFile" package
+  mv "$packageFile" ..
+  cd "$here"
   echo `tput setaf 2`Done!`tput sgr0`
   echo "`tput dim`Plasmoid package saved at \"$(pwd)/${packageFile}\"`tput sgr0`"
 }

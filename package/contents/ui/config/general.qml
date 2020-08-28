@@ -46,7 +46,7 @@ Item
       {
         id:               mainText
         Layout.fillWidth: true
-        placeholderText:  "something"
+        placeholderText:  "HTML & CSS are supported"
         text:             ""
       }
     }
@@ -58,7 +58,7 @@ Item
       {
         id:               tooltipText
         Layout.fillWidth: true
-        placeholderText:  "something else"
+        placeholderText:  "HTML & CSS are supported"
         text:             ""
       }
     }
