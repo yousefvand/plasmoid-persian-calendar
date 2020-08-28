@@ -1,4 +1,4 @@
-# Styles for main and tooltoip text
+# Styles for main and tooltip text
 
 Main text:
 
