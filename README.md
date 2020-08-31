@@ -12,7 +12,7 @@ A simple KDE Plasma widget for Persian date (a.k.a [Jalali calendar](https://en.
 
 ## Customization
 
-Some of HTML tags and CSS stylings are supported. For date and time formatting see [here](https://github.com/yousefvand/persian-date-parser).
+Some of HTML tags and CSS stylings are supported. For date and time formatting see [here](https://github.com/yousefvand/persian-date-parser#masks).
 
 ![configuration](./assets/config.png)
 
