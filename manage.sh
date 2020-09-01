@@ -212,7 +212,7 @@ function help () {
 
 # >>>>>>>>>>>>>>>>>>>>>>>> Variables >>>>>>>>>>>>>>>>>>>>>>>>
 outDirectory="out"
-plasmoidVersion="1.3.0"
+plasmoidVersion="1.3.1"
 # <<<<<<<<<<<<<<<<<<<<<<<< Variables <<<<<<<<<<<<<<<<<<<<<<<<
 
 # Entry point

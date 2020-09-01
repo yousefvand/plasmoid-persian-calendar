@@ -3,7 +3,7 @@
 Main text:
 
 ```html
-<span style="font-size:0.875em;font-family:Vazir;">pjyyyy/pjmm/pjdd</span>
+<span style="font-size:0.875em;font-family:Vazir;">pjyyyy/pjm/pjd</span>
 ```
 
 Tooltip text:

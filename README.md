@@ -1,12 +1,12 @@
 # Persian Calendar
 
-A simple KDE Plasma widget for Persian date (a.k.a [Jalali calendar](https://en.wikipedia.org/wiki/Jalali_calendar)).
+[![Stable release](https://img.shields.io/github/release/yousefvand/plasmoid-persian-calendar/all.svg)](https://github.com/yousefvand/plasmoid-persian-calendar/releases) [![GitHub issues](https://img.shields.io/github/issues/yousefvand/plasmoid-persian-calendar?style=flat)](https://github.com/yousefvand/plasmoid-persian-calendar/issues) [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/yousefvand/plasmoid-persian-calendar.svg)](http://isitmaintained.com/project/yousefvand/plasmoid-persian-calendar "Average time to resolve an issue") [![GitHub stars](https://img.shields.io/github/stars/yousefvand/plasmoid-persian-calendar?style=flat)](https://github.com/yousefvand/plasmoid-persian-calendar/stargazers) [![GitHub forks](https://img.shields.io/github/forks/yousefvand/plasmoid-persian-calendar?style=flat)](https://github.com/yousefvand/plasmoid-persian-calendar/network) [![Dependency](https://img.shields.io/badge/persian--date--parser-2.0.1-ff69b4)](https://github.com/yousefvand/persian-date-parser) [![GitHub license](https://img.shields.io/github/license/yousefvand/plasmoid-persian-calendar?style=flat)](https://github.com/yousefvand/plasmoid-persian-calendar/blob/master/LICENSE)
 
-[Link to KDE store](https://store.kde.org/p/1407451/).
+A simple KDE Plasma widget for Persian date (a.k.a [Jalali calendar](https://en.wikipedia.org/wiki/Jalali_calendar)) available at [KDE store](https://store.kde.org/p/1407451/).
 
 ![screenshot](package/contents/screenshot.png)
 
-*Latest Release: v1.3.0 `[2020-08-28]`*
+*Latest Release: v1.3.1 `[2020-09-01]`*
 
 [Change history](./CHANGELOG.md)
 
@@ -19,7 +19,7 @@ Some of HTML tags and CSS stylings are supported. For date and time formatting s
 Default style for main text:
 
 ```html
-<span style="font-size:0.875em;font-family:Vazir;">pjyyyy/pjmm/pjdd</span>
+<span style="font-size:0.875em;font-family:Vazir;">pjyyyy/pjm/pjd</span>
 ```
 
 Default style for tooltip text:
@@ -33,12 +33,20 @@ Share your styles by making a pull request to [this](STYLES) file.
 ## Installing from source
 
 ```bash
-git clone https://github.com/yousefvand/plasmoid-persian-calendar.git
-cd plasmoid-persian-calendar
-./manage.sh --build
-# Replace VERSION according to your build
-kpackagetool5 -t Plasma/Applet --install persian-calendar.VERSION.plasmoid
+$ git clone https://github.com/yousefvand/plasmoid-persian-calendar.git
+$ cd plasmoid-persian-calendar
+$ ./manage.sh
 ```
+
+## Installing from package file
+
+Uninstall previous version if any, re-login and:
+
+```bash
+$ kpackagetool5 -t Plasma/Applet --install persian-calendar.v1.3.1.zip
+```
+
+Now widget is available for adding to panel(s).
 
 ## Acknowledgements
 
