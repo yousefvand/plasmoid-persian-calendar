@@ -7,7 +7,7 @@
 # Description:   Install/Remove/Upgrade plasmoid project from current directory.
 # Author:        Remisa Yousefvand <remisa.yousefvand@gmail.com>
 # Date:          2020-08-26
-version="1.2.0"  # Script Version
+version="1.3.0"  # Script Version
 
 # Exit codes
 # ==========
@@ -15,8 +15,39 @@ version="1.2.0"  # Script Version
 # 1   unknown parameter.
 # 2   requirement not satisfied.
 # 3   Unknown error.
+# 4   Unknown update type.
 
 # >>>>>>>>>>>>>>>>>>>>>>>> functions >>>>>>>>>>>>>>>>>>>>>>>>
+
+function pac_man () {
+  local string="$1"
+  local interval="$2"
+  : "${interval:=0.2}"
+  local pad="$3"
+  : "${pad:=.}"
+  local length=${#string}
+  local padding=""
+
+	trap 'tput cnorm; echo' EXIT
+  trap 'exit 127' HUP INT TERM
+
+  tput civis
+  tput sc
+  
+  for((i=0;i<=length;i++)); do
+    tput rc
+    echo `tput dim`"$padding"`tput setaf 3`c`tput sgr0`"${string:i:length}"
+    sleep "$interval"
+    tput rc
+    echo `tput dim`"$padding"`tput setaf 3`C`tput sgr0`"${string:i:length}"
+    sleep "$interval"
+    padding+="$pad"
+  done
+
+  tput cnorm
+  tput rc
+  echo "$padding"
+}
 
 function persianNumber () {
   result="$1"
@@ -33,11 +64,37 @@ function persianNumber () {
   echo "$result"
 }
 
-function setVersion () {
-  # sed -i "0,/\"version\"\:[[:space:]]\"[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+\"/s//\"version\"\: \"${plasmoidVersion}\"/" package.json package-lock.json
-  sed -i "s/^\*Latest Release\:.*/*Latest Release: v${plasmoidVersion} \`[$(date -I)]\`*/" README.md
-  sed -i "s/^#[[:space:]]Changes.*/# Changes: TODO/" CHANGELOG.md
+function bumpVersion () {
+  local me="$1"
+  echo
+  case "$2" in
+    Major|major)
+      sed -i "s/^plasmoidVersionMajor.*/plasmoidVersionMajor=\"$((++plasmoidVersionMajor))\"/" "${me}"
+      echo `tput setaf 5`version bumped to: `tput setaf 3`${plasmoidVersionMajor}`tput setaf 5`.${plasmoidVersionMinor}.${plasmoidVersionPatch}`tput sgr0`
+    ;;
+    Minor|minor)
+      sed -i "s/^plasmoidVersionMinor.*/plasmoidVersionMinor=\"$((++plasmoidVersionMinor))\"/" "${me}"
+      echo `tput setaf 5`version bumped to: ${plasmoidVersionMajor}.`tput setaf 3`${plasmoidVersionMinor}`tput setaf 5`.${plasmoidVersionPatch}`tput sgr0`
+    ;;
+    Patch|patch)
+      sed -i "s/^plasmoidVersionPatch.*/plasmoidVersionPatch=\"$((++plasmoidVersionPatch))\"/" "${me}"
+      echo `tput setaf 5`version bumped to: ${plasmoidVersionMajor}.${plasmoidVersionMinor}.`tput setaf 3`${plasmoidVersionPatch}`tput sgr0`
+    ;;
+    *)
+      echo `tput setaf 1`Error! Unkown update type: `tput sgr0`"$2"
+      exit 4
+    ;;
+  esac
 
+  echo
+  pac_man "previous version was ${plasmoidVersion}" 0.1 "*"
+  exit 0
+  
+}
+
+function setVersion () {
+  sed -i "s/install persian-calendar.*zip$/install persian-calendar.v${plasmoidVersion}.zip/" README.md
+  sed -i "s/^#[[:space:]]Changes.*/# Changes TODO: ## v${plasmoidVersion} \`[`date -I`]\`/" CHANGELOG.md
   sed -i "s/PLASMOID_VERSION_PLACEHOLDER/${plasmoidVersion}/" "${outDirectory}/package/metadata.desktop"
   sed -i "s/PLASMOID_VERSION_PLACEHOLDER/$(persianNumber ${plasmoidVersion})/" "${outDirectory}/package/contents/ui/config/about.qml"
 }
@@ -47,14 +104,6 @@ function prepare () {
   mkdir "$outDirectory"
   cp -R package "$outDirectory"
   setVersion
-  # for jsFile in `find "$outDirectory" -name "*.js" -type f`; do
-  #   # Remove leading "// BUILD++: " from lines
-  #   sed -i 's/^\/\/[[:space:]]BUILD++\:[[:space:]]*//g' "$jsFile"
-  #   # Remove lines ending with "// BUILD--"
-  #   sed -i '/\/\/[[:space:]]BUILD--[[:space:]]*$/d' "$jsFile"
-  #   # Remove extra empty lines from end of the file
-  #   sed -i ':a;/^[ \n]*$/{$d;N;ba}' "$jsFile"
-  # done
 }
 
 function bannerSimple() {
@@ -97,7 +146,6 @@ function removePlasmoid () {
   fi
 }
 
-# killall plasmashell && kstart5 plasmashell
 function upgradePlasmoid () {
   echo "Upgrading plasmoid, please wait..."
   kpackagetool5 -t Plasma/Applet --remove "$outDirectory"/package
@@ -109,7 +157,7 @@ function upgradePlasmoid () {
   sleep 1s
   kstart5 plasmashell
   kpackagetool5 -t Plasma/Applet --install "$outDirectory"/package
-  # kpackagetool5 -u myplasmoid
+  # kpackagetool5 -u myplasmoid # Doesn't work
   if [[ $? != 0 ]]; then
     echo `tput setaf 1`Plasmoid upgrade failed!`tput sgr0`
     exit 3
@@ -197,22 +245,34 @@ function help () {
     wizard mode: $0
     silent mode: $0 [option]
 
-        option     |      Comment
-  -----------------+-------------------
-    -b, --build    |  Build   Plasmoid
-    -h, --help     |  Help    Message
-    -i, --install  |  Install Plasmoid
-    -r, --remove   |  Remove  Plasmoid
-    -u, --upgrade  |  Upgrade Plasmoid
-    -v, --version  |  Script  Version 
+        option                         |      Comment
+  -------------------------------------+-------------------
+    -b, --build                        |  Build   Plasmoid
+  -------------------------------------+-------------------
+    --bump-version [major|minor|patch] |  Bump    Version
+  -------------------------------------+-------------------
+    -h, --help                         |  Help    Message
+  -------------------------------------+-------------------
+    -i, --install                      |  Install Plasmoid
+  -------------------------------------+-------------------
+    -r, --remove                       |  Remove  Plasmoid
+  -------------------------------------+-------------------
+    -u, --upgrade                      |  Upgrade Plasmoid
+  -------------------------------------+-------------------
+    -v, --version                      |  Script  Version 
   "
+  exit 0
 }
 
 # <<<<<<<<<<<<<<<<<<<<<<<< functions <<<<<<<<<<<<<<<<<<<<<<<<
 
 # >>>>>>>>>>>>>>>>>>>>>>>> Variables >>>>>>>>>>>>>>>>>>>>>>>>
 outDirectory="out"
-plasmoidVersion="1.3.1"
+
+plasmoidVersionMajor="1"
+plasmoidVersionMinor="3"
+plasmoidVersionPatch="2"
+plasmoidVersion="${plasmoidVersionMajor}.${plasmoidVersionMinor}.${plasmoidVersionPatch}"
 # <<<<<<<<<<<<<<<<<<<<<<<< Variables <<<<<<<<<<<<<<<<<<<<<<<<
 
 # Entry point
@@ -225,6 +285,9 @@ action=""
 case "$1" in
   -b|--build)
     action=Build
+  ;;
+  --bump-version)
+    action=BumpVersion
   ;;
   -i|--install)
     action=Install
@@ -241,7 +304,6 @@ case "$1" in
   ;;
   -h|--help)
     help
-    exit 0
   ;;
   *)
     if [ -n "$1" ]; then
@@ -253,25 +315,44 @@ case "$1" in
 esac
 
 if [ -z "$action" ]; then
-  options=("Build" "Install" "Remove" "Upgrade" "Exit")
-  chooseOption "What do you want to do?" 3 "${options[@]}"; choice=$?
+  options=("Build" "Bump Version" "Install" "Remove" "Upgrade" "Help" "Exit")
+  chooseOption "What do you want to do?" 4 "${options[@]}"; choice=$?
   action="${options[$choice]}"
 fi
 
-prepare # deletes "out" directory
+if [ "$action" = "Bump Version" ]; then
+  options=("Major" "Minor" "Patch" "Exit")
+  chooseOption "What do you want to do?" 2 "${options[@]}"; choice=$?
+  action="${options[$choice]}"
+  if [ "$action" = "Exit" ]; then
+    echo `tput setaf 3`Nothing done!`tput sgr0`
+    exit 0
+  fi
+  bumpVersion "$0" "$action"
+fi
 
 case "$action" in
   Build)
+    prepare
     buildPlasmoid
   ;;
+  BumpVersion)
+    bumpVersion "$0" "$2"
+  ;;
   Install)
+    prepare
     installPlasmoid
   ;;
   Remove)
+    prepare
     removePlasmoid
   ;;
   Upgrade)
+    prepare
     upgradePlasmoid
+  ;;
+  Help)
+    help
   ;;
   Exit)
     echo `tput setaf 3`Nothing done!`tput sgr0`

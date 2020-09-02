@@ -1,7 +1,7 @@
 'use strict'
 
 /*
-    Bundled for QML from "Persian date parser v2.0.1"
+    Bundled for QML from "Persian date parser v2.0.2"
     https://github.com/yousefvand/persian-date-parser
 */
 
@@ -556,6 +556,7 @@ const parser = (cacheLimit = -1) => {
     } else { // TODO: Smart cache invalidation
       if (cacheSize >= cacheLimit) {
         utils$1.objectShift(fnCache) // FIFO
+        cacheSize--
       }
       const fns = tokenize(format).map(t => masks[t] ? masks[t] : utils.constant(t))
       fnCache[format] = utils.chain(fns)

@@ -1,5 +1,10 @@
 # Changes
 
+## v1.3.2 `[2020-09-02]`
+
+- Update to use [Persian date parser](https://github.com/yousefvand/persian-date-parser) `v2.0.2`.
+- Version bumping automation.
+
 ## v1.3.1 `[2020-09-01]`
 
 - Update to use [Persian date parser](https://github.com/yousefvand/persian-date-parser) `v2.0.1` with fixed cache mechanism.
