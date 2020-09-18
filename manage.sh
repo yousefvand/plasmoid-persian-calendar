@@ -6,13 +6,13 @@
 # Title:         Plasmoid Manager
 # Description:   Install/Remove/Upgrade plasmoid project from current directory.
 # Author:        Remisa Yousefvand <remisa.yousefvand@gmail.com>
-# Date:          2020-08-26
-version="1.3.0"  # Script Version
+# Date:          2020-09-18
+version="1.3.1"  # Script Version
 
 # Exit codes
 # ==========
 # 0   no error.
-# 1   unknown parameter.
+# 1   unknown argument.
 # 2   requirement not satisfied.
 # 3   Unknown error.
 # 4   Unknown update type.
@@ -246,22 +246,21 @@ function help () {
     silent mode: $0 [option]
 
         option                         |      Comment
-  -------------------------------------+-------------------
+  -------------------------------------+--------------------
     -b, --build                        |  Build   Plasmoid
-  -------------------------------------+-------------------
+  -------------------------------------+--------------------
     --bump-version [major|minor|patch] |  Bump    Version
-  -------------------------------------+-------------------
+  -------------------------------------+--------------------
     -h, --help                         |  Help    Message
-  -------------------------------------+-------------------
+  -------------------------------------+--------------------
     -i, --install                      |  Install Plasmoid
-  -------------------------------------+-------------------
+  -------------------------------------+--------------------
     -r, --remove                       |  Remove  Plasmoid
-  -------------------------------------+-------------------
+  -------------------------------------+--------------------
     -u, --upgrade                      |  Upgrade Plasmoid
-  -------------------------------------+-------------------
+  -------------------------------------+--------------------
     -v, --version                      |  Script  Version 
   "
-  exit 0
 }
 
 # <<<<<<<<<<<<<<<<<<<<<<<< functions <<<<<<<<<<<<<<<<<<<<<<<<
@@ -278,7 +277,8 @@ plasmoidVersion="${plasmoidVersionMajor}.${plasmoidVersionMinor}.${plasmoidVersi
 # Entry point
 
 bannerSimple "Plasmoid Manager"
-echo `tput setaf 5`Plasmoid version: ${plasmoidVersion}`tput sgr0`
+echo `tput setaf 5; tput bold`Plasmoid version: ${plasmoidVersion}`tput sgr0`
+echo
 
 action=""
 
@@ -296,18 +296,17 @@ case "$1" in
     action=Remove
   ;;
   -u|--upgrade)
-    action=Upgrsde
+    action=Upgrade
   ;;
   -v|--version)
-    echo "Plasmoid Manager v${version}"
-    exit 0
+    action=Version
   ;;
   -h|--help)
-    help
+    action=Help
   ;;
   *)
     if [ -n "$1" ]; then
-      echo "Error! Unknow parameter: \"$1\""
+      echo "Error! Unknow argument: \"$1\""
       help
       exit 1
     fi
@@ -351,14 +350,19 @@ case "$action" in
     prepare
     upgradePlasmoid
   ;;
+  Version)
+    echo "Plasmoid manager script v${version}"
+  ;;
   Help)
     help
   ;;
   Exit)
     echo `tput setaf 3`Nothing done!`tput sgr0`
-    exit 0
   ;;
   *)
     echo "Unreachable code :)"
+    exit 254
   ;;
 esac
+
+exit 0
