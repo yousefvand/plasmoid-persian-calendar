@@ -12,15 +12,15 @@
     <entry name="showTooltip" type="bool">
       <default>true</default>
     </entry>
+    <entry name="widgetWidth" type="int">
+      <default>80</default>
+    </entry>
 		<entry name="mainText" type="string">
       <default><![CDATA[<span style="font-size:0.875em;font-family:Vazir;">pjyyyy/pjm/pjd</span>]]></default>
     </entry>
 		<entry name="tooltipText" type="string">
       <default><![CDATA[<b><p style="font-family:Vazir;font-size:0.875em;text-align:center;">gdddd, gd gmmmm gyyyy<br/>pjdddd، pjd pjmmmm pjyyyy</p></b>]]></default>
     </entry>
-  </group>
-
-  <group name="About">
   </group>
 
 </kcfg>

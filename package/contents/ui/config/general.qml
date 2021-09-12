@@ -7,8 +7,9 @@ import org.kde.plasma.components 3.0 as PlasmaComponents
 
 Item
 {
-  property alias cfg_updateInterval: updateInterval.value
+  property alias cfg_widgetWidth:    widgetWidth.value
   property alias cfg_showTooltip:    showTooltip.checked
+  property alias cfg_updateInterval: updateInterval.value
   property alias cfg_mainText:       mainText.text
   property alias cfg_tooltipText:    tooltipText.text
 
@@ -16,6 +17,21 @@ Item
 
   ColumnLayout
   {
+
+    RowLayout
+    {
+      Label { text: "Widget width" }
+      SpinBox
+      {
+        id:           widgetWidth
+        minimumValue: 10
+        maximumValue: 10000
+        decimals:     0
+        stepSize:     10
+        suffix:       ""
+      }
+    }
+
     RowLayout
     {
       CheckBox

@@ -9,10 +9,4 @@ ConfigModel
     icon:   "go-home"
     source: "config/general.qml"
   }
-  ConfigCategory
-  {
-    name:   "About"
-    icon:   "help-about-symbolic"
-    source: "config/about.qml"
-  }
 }

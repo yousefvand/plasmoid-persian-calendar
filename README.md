@@ -39,7 +39,7 @@ $ ./manage.sh
 Download the [latest release](https://github.com/yousefvand/plasmoid-persian-calendar/releases). Uninstall previous version if any, re-login and:
 
 ```bash
-$ kpackagetool5 -t Plasma/Applet --install persian-calendar.v1.3.2.zip
+$ kpackagetool5 -t Plasma/Applet --install persian-calendar.v1.3.3.zip
 ```
 
 Now widget is available for adding to panel(s).

@@ -12,14 +12,16 @@ Item
 
   property bool showTooltip:         plasmoid.configuration.showTooltip
   property int updateInterval:       plasmoid.configuration.updateInterval * 1000
+  property int widgetWidth:          plasmoid.configuration.widgetWidth
   property string mainText:          plasmoid.configuration.mainText
   property string tooltipText:       plasmoid.configuration.tooltipText
 
   Plasmoid.preferredRepresentation:  Plasmoid.fullRepresentation
-  Layout.preferredHeight:            persianDateLabel.height + 4
-  Layout.preferredWidth:             persianDateLabel.width  + 4
-  Layout.maximumHeight:              persianDateLabel.height + 4
-  Layout.maximumWidth:               persianDateLabel.width  + 4
+  Layout.preferredHeight:            persianDateLabel.height + 8
+  Layout.preferredWidth:             widgetWidth
+  Layout.maximumHeight:              persianDateLabel.height + 8
+  Layout.maximumWidth:               widgetWidth
+  anchors.left: parent.left
 
   FontLoader {
     source: "../fonts/Vazir.ttf"

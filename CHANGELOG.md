@@ -1,4 +1,9 @@
-# Changes
+# Changes TODO: ## v1.3.3 `[2021-09-12]`
+
+## v1.3.3 `[2021-09-12]`
+
+- Customizable widget width.
+- Removed redundant `about me`.
 
 ## v1.3.2 `[2020-09-02]`
 

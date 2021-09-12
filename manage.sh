@@ -6,8 +6,8 @@
 # Title:         Plasmoid Manager
 # Description:   Install/Remove/Upgrade plasmoid project from current directory.
 # Author:        Remisa Yousefvand <remisa.yousefvand@gmail.com>
-# Date:          2020-09-18
-version="1.3.1"  # Script Version
+# Date:          2021-09-12
+version="1.3.2"  # Script Version
 
 # Exit codes
 # ==========
@@ -96,7 +96,7 @@ function setVersion () {
   sed -i "s/install persian-calendar.*zip$/install persian-calendar.v${plasmoidVersion}.zip/" README.md
   sed -i "s/^#[[:space:]]Changes.*/# Changes TODO: ## v${plasmoidVersion} \`[`date -I`]\`/" CHANGELOG.md
   sed -i "s/PLASMOID_VERSION_PLACEHOLDER/${plasmoidVersion}/" "${outDirectory}/package/metadata.desktop"
-  sed -i "s/PLASMOID_VERSION_PLACEHOLDER/$(persianNumber ${plasmoidVersion})/" "${outDirectory}/package/contents/ui/config/about.qml"
+  # sed -i "s/PLASMOID_VERSION_PLACEHOLDER/$(persianNumber ${plasmoidVersion})/" "${outDirectory}/package/contents/ui/config/about.qml"
 }
 
 function prepare () {
@@ -270,7 +270,7 @@ outDirectory="out"
 
 plasmoidVersionMajor="1"
 plasmoidVersionMinor="3"
-plasmoidVersionPatch="2"
+plasmoidVersionPatch="3"
 plasmoidVersion="${plasmoidVersionMajor}.${plasmoidVersionMinor}.${plasmoidVersionPatch}"
 # <<<<<<<<<<<<<<<<<<<<<<<< Variables <<<<<<<<<<<<<<<<<<<<<<<<
 
