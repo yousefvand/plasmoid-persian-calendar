@@ -22,6 +22,7 @@ PlasmoidItem
   Layout.preferredWidth:             widgetWidth
   Layout.maximumHeight:              persianDateLabel.height + 8
   Layout.maximumWidth:               widgetWidth
+  anchors.left: parent.left
 
   FontLoader {
     source: "../fonts/Vazir.ttf"
