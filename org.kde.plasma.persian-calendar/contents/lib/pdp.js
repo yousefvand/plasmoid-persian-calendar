@@ -1,7 +1,7 @@
 'use strict'
 
 /*
-    Bundled for QML from "Persian date parser v2.0.2"
+    Bundled for QML from "Persian date parser v3.0.0"
     https://github.com/yousefvand/persian-date-parser
 */
 
@@ -175,12 +175,14 @@ var names = {
   WeekDaysFingilish
 }
 
+let persianDigit
+
 const constant = c => a => c
 const digiPad = d => d < 10 ? `0${d}` : '' + d
 const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x)
 const chain = fns => now => fns.map(f => f(now)).join('')
 const persianNumber = str => str.split('').map(persianDigit).join('')
-const persianDigit = char => isNaN(char) ? char : names.persianDigits[parseInt(char)]
+persianDigit = char => isNaN(char) ? char : names.persianDigits[parseInt(char)]
 const objectShift = (obj, count = 1) => {
   for (const key in obj) {
     if (count <= 0) {

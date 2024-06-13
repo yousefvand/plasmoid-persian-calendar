@@ -1,12 +1,13 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents
+import QtQuick 6.0
+import QtQuick.Layouts 6.0
+import org.kde.plasma.plasmoid
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents
 
 import "../lib/pdp.js" as Parser
 
-Item
+PlasmoidItem
 {
   id: root
 
@@ -15,24 +16,29 @@ Item
   property int widgetWidth:          plasmoid.configuration.widgetWidth
   property string mainText:          plasmoid.configuration.mainText
   property string tooltipText:       plasmoid.configuration.tooltipText
+  property var currentTime
 
-  Plasmoid.preferredRepresentation:  Plasmoid.fullRepresentation
   Layout.preferredHeight:            persianDateLabel.height + 8
   Layout.preferredWidth:             widgetWidth
   Layout.maximumHeight:              persianDateLabel.height + 8
   Layout.maximumWidth:               widgetWidth
-  anchors.left: parent.left
 
   FontLoader {
     source: "../fonts/Vazir.ttf"
   }
 
-  PlasmaCore.DataSource
+  Timer
   {
-    id:                   localTime
-    engine:               "time"
-    connectedSources:     ["Local"]
-    interval:             updateInterval
+    id: timer
+    interval: updateInterval
+    running: true
+    repeat: true
+    onTriggered: {
+      interval = updateInterval
+      currentTime = new Date()
+    }
+
+    Component.onCompleted: console.log("timer completed")
   }
     
   PlasmaComponents.Label
@@ -43,7 +49,7 @@ Item
     font.pointSize:       -1
     font.pixelSize:       parent.height * 0.6
     textFormat:           Text.RichText
-    text:                 Parser.parse(mainText, localTime.data.Local.DateTime, true)
+    text:                 Parser.parse(mainText, currentTime, true)
     wrapMode:             Text.NoWrap
     anchors.centerIn:     parent
   }
@@ -54,6 +60,6 @@ Item
     visible:      showTooltip
     textFormat:   Text.RichText
     mainText:     ""
-    subText:      Parser.parse(tooltipText, localTime.data.Local.DateTime, true)
+    subText:      Parser.parse(tooltipText, currentTime, true)
   }
 }

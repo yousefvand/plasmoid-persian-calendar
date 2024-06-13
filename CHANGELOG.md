@@ -1,4 +1,7 @@
-# Changes TODO: ## v1.3.3 `[2021-09-12]`
+# v2.0.0 `[2024-06-13]`
+
+- Ported from plasmoid 5.0 to 6.0.
+- There is a known issue that config page is blank.
 
 ## v1.3.3 `[2021-09-12]`
 

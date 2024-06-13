@@ -1,0 +1,25 @@
+{
+    "KPlugin": {
+        "KPackageStructure": "Plasma/Applet",
+        "Authors": [
+            {
+                "Email": "remisa.yousefvand@gmail.com",
+                "Name": "Remisa Yousefvand"
+            }
+        ],
+        "Category": "Date and Time",
+        "Description": "Persian calendar (Jalali).",
+        "EnabledByDefault": true,
+        "Icon": "mini-calendar-widget",
+        "Id": "org.kde.plasma.persian-calendar",
+        "License": "GPL",
+        "Name": "Persian Calendar",
+        "Version": "2.0.0",
+        "Website": "https://github.com/yousefvand/plasmoid-persian-calendar"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-KDE-PluginInfo-KdeStoreId": "1407451",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.date"
+    ]
+}

@@ -10,8 +10,6 @@ A simple KDE Plasma widget for Persian date (a.k.a [Jalali calendar](https://en.
 
 Some of HTML tags and CSS stylings are supported. For date and time formatting check [here](https://github.com/yousefvand/persian-date-parser#masks).
 
-![configuration](./assets/config.png)
-
 Default style for main text:
 
 ```html
@@ -26,20 +24,12 @@ Default style for tooltip text:
 
 Share your styles by making a pull request to [this](STYLES) file.
 
-## Installing from source
-
-```bash
-$ git clone https://github.com/yousefvand/plasmoid-persian-calendar.git
-$ cd plasmoid-persian-calendar
-$ ./manage.sh
-```
-
 ## Installing from package file
 
 Download the [latest release](https://github.com/yousefvand/plasmoid-persian-calendar/releases). Uninstall previous version if any, re-login and:
 
 ```bash
-$ kpackagetool5 -t Plasma/Applet --install persian-calendar.v1.3.3.zip
+$ kpackagetool5 -t Plasma/Applet --install persian-calendar.v2.0.0.zip
 ```
 
 Now widget is available for adding to panel(s).
