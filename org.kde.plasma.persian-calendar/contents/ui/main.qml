@@ -1,9 +1,9 @@
 import QtQuick 6.0
 import QtQuick.Layouts 6.0
-import org.kde.plasma.plasmoid
+import org.kde.plasma.plasmoid 2.0
 import org.kde.kirigami as Kirigami
-import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.components as PlasmaComponents
+import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.components 3.0 as PlasmaComponents
 
 import "../lib/pdp.js" as Parser
 
@@ -12,7 +12,7 @@ PlasmoidItem
   id: root
 
   property bool showTooltip:         plasmoid.configuration.showTooltip
-  property int updateInterval:       plasmoid.configuration.updateInterval * 1000
+  property int updateInterval:       plasmoid.configuration.updateInterval
   property int widgetWidth:          plasmoid.configuration.widgetWidth
   property string mainText:          plasmoid.configuration.mainText
   property string tooltipText:       plasmoid.configuration.tooltipText

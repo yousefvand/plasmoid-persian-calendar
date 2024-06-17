@@ -12,21 +12,21 @@ Item
 
   signal configurationChanged
 
-  property alias cfg_widgetWidth:    widgetWidth.value
-  property alias cfg_showTooltip:    showTooltip.checked
-  property alias cfg_updateInterval: updateInterval.value
-  property alias cfg_mainText:       mainText.text
-  property alias cfg_tooltipText:    tooltipText.text
-  
+  property alias cfg_widgetWidth:     widgetWidth.value
+  property alias cfg_showTooltip:     showTooltip.checked
+  property alias cfg_updateInterval:  updateInterval.value
+  property alias cfg_mainText:        mainText.text
+  property alias cfg_tooltipText:     tooltipText.text
   property alias cfg_persianDateLabel: persianDateLabel.height
 
   anchors.centerIn: parent
 
   ColumnLayout
   {
-    /*
+
     RowLayout
     {
+      id: widgetWidth
       Label { text: "Widget width" }
       SpinBox
       {
@@ -37,34 +37,37 @@ Item
         stepSize:     10
         // suffix:       ""
       }
-    } */
+    }
 
     RowLayout
     {
+      id: showTooltip
       CheckBox
       {
-        id: showTooltip
+        id:      showTooltip
         checked: true
-        text: "Show tooltip"
+        text:    "Show tooltip"
       }
     }
-    /*
+
     RowLayout
     {
+      id: updateInterval
       Label { text: "Update Interval (seconds)" }
       SpinBox
       {
         id:           updateInterval
-        minimumValue: 0.001
-        maximumValue: 86399
-        decimals:     3
-        stepSize:     1
+        from: 1
+        to: 86399
+        editable:     true
+        stepSize:     10
         suffix:       " s"
       }
-    } */
-    /*
+    }
+
     RowLayout
     {
+      id: mainText
       Label { text: "Main" }
       TextField
       {
@@ -73,10 +76,11 @@ Item
         placeholderText:  "HTML & CSS are supported"
         text:             ""
       }
-    } */
-    /*
+    }
+
     RowLayout
     {
+      id: tooltipText
       Label { text: "Tooltip" }
       TextField
       {
@@ -85,6 +89,6 @@ Item
         placeholderText:  "HTML & CSS are supported"
         text:             ""
       }
-    } */
+    }
   }
 }

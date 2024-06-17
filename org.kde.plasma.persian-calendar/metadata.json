@@ -18,7 +18,7 @@
         "Website": "https://github.com/yousefvand/plasmoid-persian-calendar"
     },
     "X-Plasma-API-Minimum-Version": "6.0",
-    "X-KDE-PluginInfo-KdeStoreId": "1407451",
+    "X-KDE-PluginInfo-KdeStoreId": "2165655",
     "X-Plasma-Provides": [
         "org.kde.plasma.date"
     ]
