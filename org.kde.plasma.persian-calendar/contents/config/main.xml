@@ -18,7 +18,7 @@
       <default><![CDATA[<span style="font-size:0.875em;font-family:Vazir;">pjyyyy/pjm/pjd</span>]]></default>
     </entry>
 		<entry name="tooltipText" type="string">
-      <default><![CDATA[<b><p style="font-family:Vazir;font-size:0.875em;text-align:center;">gdddd, gd gmmmm gyyyy<br/>pjddddØ pjd pjmmmm pjyyyy</p></b>]]></default>
+      <default><![CDATA[<b><p style="font-family:Vazir;font-size:0.875em;text-align:center;">gdddd, gd gmmmm gyyyy<br/>pjdddd، pjd pjmmmm pjyyyy</p></b>]]></default>
     </entry>
     <entry name="persianDateLabel" type="int">
       <default>20</default>
