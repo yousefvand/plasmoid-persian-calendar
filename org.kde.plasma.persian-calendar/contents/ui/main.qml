@@ -11,18 +11,18 @@ PlasmoidItem
 {
   id: root
 
-  property bool showTooltip:         plasmoid.configuration.showTooltip
-  property int updateInterval:       plasmoid.configuration.updateInterval
-  property int widgetWidth:          plasmoid.configuration.widgetWidth
-  property string mainText:          plasmoid.configuration.mainText
-  property string tooltipText:       plasmoid.configuration.tooltipText
+  property bool showTooltip:    plasmoid.configuration.showTooltip
+  property int updateInterval:  plasmoid.configuration.updateInterval
+  property int widgetWidth:     plasmoid.configuration.widgetWidth
+  property string mainText:     plasmoid.configuration.mainText
+  property string tooltipText:  plasmoid.configuration.tooltipText
   property var currentTime
 
-  Layout.preferredHeight:            persianDateLabel.height + 8
-  Layout.maximumHeight:              Layout.preferredHeight
-  Layout.preferredWidth:             widgetWidth
-  Layout.maximumWidth:               widgetWidth
-  anchors.left: parent.left
+  Layout.preferredHeight:       persianDateLabel.height + 8
+  Layout.maximumHeight:         Layout.preferredHeight
+  Layout.preferredWidth:        widgetWidth
+  Layout.maximumWidth:          widgetWidth
+  anchors.left:                 parent.left
 
   FontLoader {
     source: "../fonts/Vazir.ttf"
