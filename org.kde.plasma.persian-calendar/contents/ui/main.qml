@@ -19,8 +19,8 @@ PlasmoidItem
   property var currentTime
 
   Layout.preferredHeight:            persianDateLabel.height + 8
+  Layout.maximumHeight:              Layout.preferredHeight
   Layout.preferredWidth:             widgetWidth
-  Layout.maximumHeight:              persianDateLabel.height + 8
   Layout.maximumWidth:               widgetWidth
   anchors.left: parent.left
 
