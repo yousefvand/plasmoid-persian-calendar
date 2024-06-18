@@ -19,9 +19,9 @@ PlasmoidItem
   property var currentTime
 
   Layout.preferredHeight:       persianDateLabel.height + 8
-  Layout.maximumHeight:         Layout.preferredHeight
+  Layout.maximumHeight:         Layout.preferredHeight + 10
   Layout.preferredWidth:        widgetWidth
-  Layout.maximumWidth:          widgetWidth
+  Layout.maximumWidth:          widgetWidth + 4
   anchors.left:                 parent.left
 
   FontLoader {
@@ -30,12 +30,12 @@ PlasmoidItem
 
   Timer
   {
-    id: timer
-    interval: updateInterval
-    running: true
-    repeat: true
+    id:         timer
+    interval:   updateInterval
+    running:    true
+    repeat:     true
     onTriggered: {
-      interval = updateInterval
+      interval    = updateInterval
       currentTime = new Date()
     }
 
@@ -44,15 +44,15 @@ PlasmoidItem
     
   PlasmaComponents.Label
   {
-    id:                   persianDateLabel
-    smooth:               true
-    font.family:          "Vazir"
-    font.pointSize:       -1
-    font.pixelSize:       parent.height * 0.6
-    textFormat:           Text.RichText
-    text:                 Parser.parse(mainText, currentTime, true)
-    wrapMode:             Text.NoWrap
-    anchors.centerIn:     parent
+    id:               persianDateLabel
+    smooth:           true
+    font.family:      "Vazir"
+    font.pointSize:   -1
+    font.pixelSize:   parent.height * 0.6
+    textFormat:       Text.RichText
+    text:             Parser.parse(mainText, currentTime, true)
+    wrapMode:         Text.NoWrap
+    anchors.centerIn: parent
   }
 
   PlasmaCore.ToolTipArea

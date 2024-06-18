@@ -35,7 +35,7 @@ Item
         to:           10000
         editable:     true
         stepSize:     10
-        // suffix:       ""
+     // suffix:       ""
       }
     }
 
