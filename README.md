@@ -4,7 +4,7 @@
 
 A simple KDE Plasma widget for Persian date (a.k.a [Jalali calendar](https://en.wikipedia.org/wiki/Jalali_calendar)) available at [KDE store](https://www.pling.com/p/2165655/).
 
-![screenshot](package/contents/screenshot.png)
+![screenshot](org.kde.plasma.persian-calendar/contents/screenshot.png)
 
 ## Customization
 
