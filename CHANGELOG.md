@@ -1,3 +1,7 @@
+# v2.1.0 `[2024-06-19]`
+
+- Config page fixed
+
 # v2.0.0 `[2024-06-13]`
 
 - Ported from plasmoid 5.0 to 6.0.
