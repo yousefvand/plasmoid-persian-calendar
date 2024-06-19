@@ -6,89 +6,81 @@ import org.kde.kirigami as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
-Item
-{
-  id: configRoot
+Item {
+    id: configRoot
 
-  signal configurationChanged
+    signal configurationChanged
 
-  property alias cfg_widgetWidth:     widgetWidth.value
-  property alias cfg_showTooltip:     showTooltip.checked
-  property alias cfg_updateInterval:  updateInterval.value
-  property alias cfg_mainText:        mainText.text
-  property alias cfg_tooltipText:     tooltipText.text
-  property alias cfg_persianDateLabel: persianDateLabel.height
+    property alias cfg_widgetWidth: widgetWidthSpinBox.value
+    property alias cfg_mainText: mainTextField.text
+    property alias cfg_tooltipText: tooltipTextField.text
+    property alias cfg_persianDateLabel: persianDateLabel.height
+    property alias cfg_showTooltip: showTooltipCheckBox.checked
+    property alias cfg_updateInterval: updateIntervalSpinBox.value
 
-  anchors.centerIn: parent
+    anchors.centerIn: parent
 
-  ColumnLayout
-  {
+    ColumnLayout {
+        RowLayout {
+            Label { text: "Widget width" }
+            SpinBox {
+                id: widgetWidthSpinBox
+                from: 10
+                to: 10000
+                editable: true
+                stepSize: 10
+                // suffix: ""
+            }
+        }
 
-    RowLayout
-    {
-      id: widgetWidth
-      Label { text: "Widget width" }
-      SpinBox
-      {
-        id:           widgetWidth
-        from:         10
-        to:           10000
-        editable:     true
-        stepSize:     10
-     // suffix:       ""
-      }
+        RowLayout {
+            Label { text: "Main" }
+            TextField {
+                id: mainTextField
+                Layout.fillWidth: true
+                placeholderText: "HTML & CSS are supported"
+                text: ""
+            }
+        }
+
+        RowLayout {
+            Label { text: "Tooltip" }
+            TextField {
+                id: tooltipTextField
+                Layout.fillWidth: true
+                placeholderText: "HTML & CSS are supported"
+                text: ""
+            }
+        }
+
+        RowLayout {
+            Label { text: "Persian Date Label Height" }
+            TextField {
+                id: persianDateLabel
+                Layout.fillWidth: true
+                placeholderText: "Enter height value"
+                text: ""
+            }
+        }
+
+        RowLayout {
+            CheckBox {
+                id: showTooltipCheckBox
+                checked: true
+                text: "Show tooltip"
+            }
+        }
+
+        RowLayout {
+            Label { text: "Update Interval (seconds)" }
+            SpinBox {
+                id: updateIntervalSpinBox
+                from: 1
+                to: 1000  // Reduced range for testing
+                editable: true
+                stepSize: 10
+                // suffix: " s"  // Commented out for testing
+            }
+        }
     }
-
-    RowLayout
-    {
-      id: showTooltip
-      CheckBox
-      {
-        id:      showTooltip
-        checked: true
-        text:    "Show tooltip"
-      }
-    }
-
-    RowLayout
-    {
-      id: updateInterval
-      Label { text: "Update Interval (seconds)" }
-      SpinBox
-      {
-        id:           updateInterval
-        from: 1
-        to: 86399
-        editable:     true
-        stepSize:     10
-        suffix:       " s"
-      }
-    }
-
-    RowLayout
-    {
-      id: mainText
-      Label { text: "Main" }
-      TextField
-      {
-        id:               mainText
-        Layout.fillWidth: true
-        placeholderText:  "HTML & CSS are supported"
-        text:             ""
-      }
-    }
-
-    RowLayout
-    {
-      id: tooltipText
-      Label { text: "Tooltip" }
-      TextField
-      {
-        id:               tooltipText
-        Layout.fillWidth: true
-        placeholderText:  "HTML & CSS are supported"
-        text:             ""
-      }
-    }
-  }
 }
